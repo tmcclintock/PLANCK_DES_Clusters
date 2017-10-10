@@ -1,8 +1,9 @@
 #emacs backup files
 *~
 
-# the data
+# the data and results
 data
+results
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

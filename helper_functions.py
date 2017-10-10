@@ -39,11 +39,24 @@ def fix_data(R, DS, err, scale_cut=False):
     else: inds = np.invert(np.isnan(DS))
     return R[inds], DS[inds], err[inds]
 
+def get_good_indices(R, DS):
+    P1 = np.invert(np.isnan(DS))
+    P2 = (R > 0.2)
+    P3 = (DS > 0)
+    inds = P1*P2*P3
+    print inds
+    return inds
+
 def get_model_default():
     return {"c":5.0}
 
 def get_model_start(model_name):
-    defs = get_model_defaults()
+    defs = get_model_default()
     if model_name is "Mc": return 14.0, defs['c']
     else: return 14.0
     
+def get_power_spectra(index):
+    k = np.loadtxt("data/P_files/k.txt")
+    Plin = np.loadtxt("data/P_files/plin_cluster%d.txt"%index)
+    Pnl  = np.loadtxt("data/P_files/pnl_cluster%d.txt"%index)
+    return k, Plin, Pnl

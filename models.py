@@ -9,19 +9,20 @@ Rp = np.logspace(-2, 2.4, 1000, base=10) #Mpc/h
 Switch between models.
 """
 def model_swap(params, model_name):
-    defs = HF.get_model_defaults()
-    if name is "Mc":
+    defs = HF.get_model_default()
+    if model_name is "Mc":
         lM, c = params
-    if name is "M":
+    if model_name is "M":
         lM = params
         c = defs['c']
     return lM, c
 
 def get_delta_sigma(params, z, cosmo, k, Plin, Pnl, Rmodel, xi_mm, Redges, model_name):
     lM, c = model_swap(params, model_name)
-    Om = cosmo['om']
+    om = cosmo['om']
     h = cosmo['h']
     M = 10**lM
+    print "here", M, lM
     xi_nfw   = clusterwl.xi.xi_nfw_at_R(Rmodel, M, c, om)
     bias = clusterwl.bias.bias_at_M(M, k, Plin, om)
     xi_2halo = clusterwl.xi.xi_2halo(bias, xi_mm)
