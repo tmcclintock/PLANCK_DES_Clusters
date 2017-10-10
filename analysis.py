@@ -20,3 +20,6 @@ def find_best_fit(args, bfpath):
     outmodel = models.model_swap(result['x'], model_name)
     np.savetxt(bfpath, outmodel)
     return 
+
+if __name__ == "__main__":
+    print "do stuff"
