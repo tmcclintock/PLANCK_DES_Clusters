@@ -1,5 +1,5 @@
 import numpy as np
-
+from models import *
 
 cosmo = {"h":0.7, "om":0.3}
 def get_cosmo():
@@ -29,7 +29,7 @@ def get_DS_err():
 def get_all_data(cut_zeros=False):
     return get_DS_data(), get_DS_err()
 
-def get_Redges_and_Rmid(Nbins):
+def get_Redges_and_Rmid(Nbins): #Mpc physical
     Redges = np.logspace(np.log10(0.0323), np.log10(30.), num=Nbins+1)
     Rmid = (Redges[:-1] + Redges[1:])/2. #midpoint
     return Redges, Rmid
@@ -44,8 +44,10 @@ def get_good_indices(R, DS):
     P2 = (R > 0.2)
     P3 = (DS > 0)
     inds = P1*P2*P3
-    print inds
     return inds
+
+def get_bad_indices(R, DS):
+    return (R < 0.2)
 
 def get_model_default():
     return {"c":5.0}
@@ -60,3 +62,8 @@ def get_power_spectra(index):
     Plin = np.loadtxt("data/P_files/plin_cluster%d.txt"%index)
     Pnl  = np.loadtxt("data/P_files/pnl_cluster%d.txt"%index)
     return k, Plin, Pnl
+
+def get_BF_params(index, model_name):
+    lM, c = np.loadtxt("results/bestfits/bf_cluster%d.txt"%index)
+    if model_name is "M": return lM
+    elif model_name is "Mc": return lM, c

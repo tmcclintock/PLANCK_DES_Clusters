@@ -14,7 +14,9 @@ def lnlike(params, args):
     #print DS, np.sqrt(np.diagonal(cov))
     #Convert to Mpc physical
     X = DS - aveDS[inds]*h*(1+z)**2
-    return -0.5*np.dot(X, np.dot(icov, X))
+    chi2 = -0.5*np.dot(X, np.dot(icov, X))
+    #print "chi2 = %e"%chi2
+    return chi2
 
 def lnprob(params, args):
     z, cosmo, k, Plin, Pnl, Rmodel, xi_mm, Redges, model_name, R, DS, icov, cov, inds = args

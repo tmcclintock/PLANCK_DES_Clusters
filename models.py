@@ -22,7 +22,7 @@ def get_delta_sigma(params, z, cosmo, k, Plin, Pnl, Rmodel, xi_mm, Redges, model
     om = cosmo['om']
     h = cosmo['h']
     M = 10**lM
-    print "here", M, lM
+    #print "here", M, lM
     xi_nfw   = clusterwl.xi.xi_nfw_at_R(Rmodel, M, c, om)
     bias = clusterwl.bias.bias_at_M(M, k, Plin, om)
     xi_2halo = clusterwl.xi.xi_2halo(bias, xi_mm)
@@ -30,5 +30,6 @@ def get_delta_sigma(params, z, cosmo, k, Plin, Pnl, Rmodel, xi_mm, Redges, model
     Sigma  = clusterwl.deltasigma.Sigma_at_R(Rp, Rmodel, xi_hm, M, c, om)
     DeltaSigma = clusterwl.deltasigma.DeltaSigma_at_R(Rp, Rp, Sigma, M, c, om)
     ave_DeltaSigma = np.zeros((len(Redges)-1))
+    #Redges are already in Mpc/h physical
     clusterwl.averaging.average_profile_in_bins(Redges, Rp, DeltaSigma, ave_DeltaSigma)
     return Rp, Sigma, DeltaSigma, ave_DeltaSigma
