@@ -1,6 +1,10 @@
 import numpy as np
 
 
+cosmo = {"h":0.7, "om":0.3}
+def get_cosmo():
+    return cosmo
+
 def get_lams():
     return 0
 
@@ -34,3 +38,12 @@ def fix_data(R, DS, err, scale_cut=False):
     if scale_cut: inds = np.invert(np.isnan(DS)) * (R > 0.2)
     else: inds = np.invert(np.isnan(DS))
     return R[inds], DS[inds], err[inds]
+
+def get_model_default():
+    return {"c":5.0}
+
+def get_model_start(model_name):
+    defs = get_model_defaults()
+    if model_name is "Mc": return 14.0, defs['c']
+    else: return 14.0
+    
