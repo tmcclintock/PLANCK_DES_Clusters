@@ -1,9 +1,17 @@
 import numpy as np
 from models import *
+from colossus.halo import concentration
+from colossus.cosmology import cosmology
 
 cosmo = {"h":0.7, "om":0.3}
 def get_cosmo():
     return cosmo
+default_cos = {"H0": cosmo['h']*100., "Om0":cosmo['om'], 'Ob0':0.05,'sigma8':0.8,'ns':0.96}
+cosmology.addCosmology('fiducial', default_cos)
+cosmology.setCosmology('fiducial')
+
+def get_concentration(M, z):
+    return concentration.concentration(M, '200m', z=z, model='diemer15')
 
 def get_lams():
     return 0
