@@ -32,9 +32,9 @@ if __name__ == "__main__":
     N_bins = len(DS_all[0])
     Redges_Mpc, Rmid = HF.get_Redges_and_Rmid(N_bins) #Mpc physical
     zs = np.loadtxt("data/z.txt")
-    N = 9 #len(zs)
+    N = len(zs)
     for i in range(N):
-        if i < 0 or i > 9: continue
+        #if i < 0 or i > 9: continue
         z = zs[i]
         Redges = Redges_Mpc * h*(1+z) #Mpc/h comoving
         inds = get_good_indices(Rmid, DS_all[i])
